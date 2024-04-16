@@ -1,0 +1,61 @@
+class Node:
+    def __init__(self, item, next=None):
+        self.item = item
+        self.next = next
+
+class MyQueue:
+
+    def __init__(self):
+        self.head = None
+
+    def push(self, x) -> None:
+        head = self.head
+        if not head:
+            self.head = Node(x)
+            return None
+        while head.next:
+            head = head.next
+        head.next = Node(x)
+
+    def pop(self) -> int:
+        res = self.head.item
+        self.head = self.head.next
+        return res
+
+    def peek(self) -> int:
+        return self.head.item
+
+    def empty(self) -> bool:
+        if self.head:
+            return False
+        return True
+    
+    def reverse(self):
+        if self.head == None:
+            return None
+        res = None
+        while self.head.next != None:
+            res = Node(self.head.item, res)
+            self.head = self.head.next
+        self.head = Node(self.head.item, res)
+
+
+
+class MyStack:
+
+    def __init__(self):
+        self.head = MyQueue()
+
+    def push(self, x: int) -> None:
+        self.head.reverse()
+        self.head.push(x)
+        self.head.reverse()
+
+    def pop(self) -> int:
+        return self.head.pop()
+
+    def top(self) -> int:
+        return self.head.peek()
+
+    def empty(self) -> bool:
+        return self.head.empty()
